@@ -8,6 +8,12 @@ public class Nodo {
         this.data = 0;
     }
 
+    public Nodo(int d) {
+        this.previous = null;
+        this.next = null;
+        this.data = d;
+    }
+
     // getter setters
     public Nodo getPrevious() {
         return previous;
@@ -21,11 +27,11 @@ public class Nodo {
     public void setNext(Nodo next) {
         this.next = next;
     }
-    public int getDato() {
+    public int getData() {
         return data;
     }
-    public void setDato(int dato) {
-        this.data = dato;
+    public void setData(int data) {
+        this.data = data;
     }
 
     

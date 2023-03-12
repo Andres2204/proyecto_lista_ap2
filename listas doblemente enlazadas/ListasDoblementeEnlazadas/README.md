@@ -1,18 +1,26 @@
-## Getting Started
+# Listas Doblemente enlazadas Proyecto
+Proyecto para Algoritmos y programacion 2
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# Requeriments 
+- ### Menu Grafico
+- ### Insertar inicio (completo)
+- ### insertar final (completo)
+- ### Insertar ordenado
+    - Ascendete
+    - Descendente
 
-## Folder Structure
+- ### Ordenar lista
+    - Ascendente
+    - Descendente
 
-The workspace contains two folders by default, where:
+- ### Buscar Dato
+    - mostar dato
+    - eliminar dato
+    - reemplazar dato
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- ### Mostar Lista Graficamente
+- ### Operacions con listas
+    - sumar / restar
+    - multiplicacion
+    - divicion
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
