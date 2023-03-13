@@ -5,11 +5,26 @@ public class ListaDobleEnlazada {
     // ##### Sort #####
     public void sort(boolean asc) {
         sortAsc = asc;
-        if (sortAsc) { // sort ascending
-
-        } else { // sort descending
-
+        Nodo p = start;
+        Nodo q = p;
+        int aux;
+        while (p != null) {
+            q = start;
+            while (q != null) {
+                if (sortAsc && p.getData() < q.getData()) {
+                    aux = p.getData();
+                    p.setData(q.getData());
+                    q.setData(aux);
+                } else if (!sortAsc  && p.getData() > q.getData()) {
+                    aux = p.getData();
+                    p.setData(q.getData());
+                    q.setData(aux);
+                }
+                q = q.getNext();
+            }
+            p = p.getNext();
         }
+
     }
 
     // ############### Append methods ###############

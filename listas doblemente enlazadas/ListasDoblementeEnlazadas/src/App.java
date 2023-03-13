@@ -11,13 +11,13 @@ public class App {
         */
 
 
-        lista.appendToEnd(1);
         lista.appendToEnd(2);
         lista.appendToEnd(4);
         lista.appendToEnd(6);
         lista.appendToEnd(8);
+        lista.appendToEnd(1);
 
-        lista.appendSort(5, false);
+        lista.sort(false);
 
         lista.showInConsole();
     }
