@@ -5,11 +5,11 @@ Proyecto para Algoritmos y programacion 2
 - ### Menu Grafico
 - ### Insertar inicio (completo)
 - ### insertar final (completo)
-- ### Insertar ordenado
+- ### Insertar ordenado (completo)
     - Ascendete
     - Descendente
 
-- ### Ordenar lista
+- ### Ordenar lista (completo)
     - Ascendente
     - Descendente
 
