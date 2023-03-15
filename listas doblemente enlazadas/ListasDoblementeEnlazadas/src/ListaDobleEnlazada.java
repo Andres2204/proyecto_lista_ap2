@@ -85,27 +85,63 @@ public class ListaDobleEnlazada {
     }
 
     // ############### Search ###############
+    public int search(int d) {
+        int counter = 0;
+        Nodo p = start;
+        do {
+            if (p.getData() == d) {
+                counter ++;
+            }
+        } while (p!=start);
+        
 
+        return counter;
+    }
     // ############### Math Operations ###############
+    public String addition(ListaDobleEnlazada A, ListaDobleEnlazada B) {
+        Nodo a = A.getStart(), b = B.getStart();
+
+        return showList();
+    } 
+
+    public String subtract(ListaDobleEnlazada A, ListaDobleEnlazada B) {
+        Nodo a = A.getStart(), b = B.getStart();
+
+        return showList();
+    } 
+
+    public String multiply(ListaDobleEnlazada A, ListaDobleEnlazada B) {
+        Nodo a = A.getStart(), b = B.getStart();
+
+        return showList();
+    } 
+
+    public String divide(ListaDobleEnlazada A, ListaDobleEnlazada B) {
+        Nodo a = A.getStart(), b = B.getStart();
+
+        return showList();
+    }       
+
+
 
     // ############### Utility ###############
     public boolean isEmpty() { // return true if the list is empty
         return start == null ? true : false;
     }
 
-    public void showInConsole() {
+    public String showList() {
         Nodo p = start;
-        String nextText, previousText;
+        String nextText, previousText, output = "Is Empty";
         if (!isEmpty()) {
+            output = "";
             while (p != null) {
                 nextText = p.getNext() == null ? " / " : " | -> ";
                 previousText = p.getPrevious() == null ? " / " : " <- | ";
-                System.out.print(previousText + p.getData() + nextText);
+                output += previousText + p.getData() + nextText;
                 p = p.getNext();
             }
-        } else {
-            System.out.println("Empty List.");
         }
+        return output;
     }
 
     // ############### Getters and Setters ###############
