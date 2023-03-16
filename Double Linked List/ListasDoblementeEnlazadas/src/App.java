@@ -4,7 +4,7 @@ import javax.swing.plaf.FontUIResource;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        FontUIResource f = new FontUIResource("calibri", 1,14); 
+        FontUIResource f = new FontUIResource("calibri", 1, 14);
         UIManager.put("OptionPane.messageFont", f);
 
         /* Docs */
@@ -13,25 +13,25 @@ public class App {
         DoubleLinkedList B = new DoubleLinkedList();
         boolean selectedList = true, sortAsc = true; // True = A, False = B
         int d = 0, opc = 0, times = 0;
-        
+
         // For testing
-        //A.appendToEnd(10);
-        //A.appendToEnd(120);
-        //A.appendToEnd(14*5);
-        //A.appendToEnd(125);
-        //B.appendToEnd(130);
-        //B.appendToEnd(120);
-        //B.appendToEnd(14);
-        //B.appendToEnd(5);
+        // A.appendToEnd(10);
+        // A.appendToEnd(120);
+        // A.appendToEnd(14*5);
+        // A.appendToEnd(125);
+        // B.appendToEnd(130);
+        // B.appendToEnd(120);
+        // B.appendToEnd(14);
+        // B.appendToEnd(5);
         // B.appendToEnd(30);
-        
+
         while (true) {
             DoubleLinkedList C = new DoubleLinkedList(); // restart the list for the new math operations
             try {
 
                 switch (menu(selectedList, sortAsc)) {
                     case 1: // append to start
-                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresar un numero: "));
+                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendToStart(d);
                         else
@@ -39,7 +39,7 @@ public class App {
                         break;
 
                     case 2: // appent to end
-                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresar un numero: "));
+                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendToEnd(d);
                         else
@@ -47,7 +47,7 @@ public class App {
                         break;
 
                     case 3: // append sort
-                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresar un numero: "));
+                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendSort(d, sortAsc);
                         else
@@ -62,9 +62,10 @@ public class App {
                         break;
 
                     case 5: // Search
-                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresar un numero: "));
+                        d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number to search: "));
                         times = A.search(d);
-                        JOptionPane.showMessageDialog(null, "The number was found" + times + "times");
+                        JOptionPane.showMessageDialog(null,
+                                "The number was found: " + times + (times > 1 ? " times" : " time"));
                         break;
 
                     case 6: // Math
@@ -72,9 +73,9 @@ public class App {
                                 1. Addition.
                                 2. Subtract.
                                 3. Multiply (null elements are taken as 1)
-                                4. Divide. (If it's nothing, then 
-                                    nothing can't be divisible by 
-                                    something, and nothing can't 
+                                4. Divide. (If it's nothing, then
+                                    nothing can't be divisible by
+                                    something, and nothing can't
                                     divide something.)
                                 """));
                         if (opc == 1)
