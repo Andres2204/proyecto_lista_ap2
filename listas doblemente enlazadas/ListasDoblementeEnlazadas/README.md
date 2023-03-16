@@ -2,7 +2,7 @@
 Proyecto para Algoritmos y programacion 2
 
 # Requeriments 
-- ### Menu Grafico
+- ### Menu Grafico (completo)
 - ### Insertar inicio (completo)
 - ### insertar final (completo)
 - ### Insertar ordenado (completo)
@@ -13,13 +13,13 @@ Proyecto para Algoritmos y programacion 2
     - Ascendente
     - Descendente
 
-- ### Buscar Dato
+- ### Buscar Dato 
     - mostar dato
     - eliminar dato
     - reemplazar dato
 
-- ### Mostar Lista Graficamente
-- ### Operacions con listas
+- ### Mostar Lista Graficamente (completo)
+- ### Operacions con listas (completo)
     - sumar / restar
     - multiplicacion
     - divicion

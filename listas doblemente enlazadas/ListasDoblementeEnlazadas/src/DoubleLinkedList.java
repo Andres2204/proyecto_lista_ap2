@@ -1,4 +1,4 @@
-public class ListaDobleEnlazada {
+public class DoubleLinkedList {
     private Nodo start, end;
     private boolean sortAsc = true;
 
@@ -15,7 +15,7 @@ public class ListaDobleEnlazada {
                     aux = p.getData();
                     p.setData(q.getData());
                     q.setData(aux);
-                } else if (!sortAsc  && p.getData() > q.getData()) {
+                } else if (!sortAsc && p.getData() > q.getData()) {
                     aux = p.getData();
                     p.setData(q.getData());
                     q.setData(aux);
@@ -90,39 +90,80 @@ public class ListaDobleEnlazada {
         Nodo p = start;
         do {
             if (p.getData() == d) {
-                counter ++;
+                counter++;
             }
-        } while (p!=start);
-        
+        } while (p != start);
 
         return counter;
     }
+
     // ############### Math Operations ###############
-    public String addition(ListaDobleEnlazada A, ListaDobleEnlazada B) {
-        Nodo a = A.getStart(), b = B.getStart();
+    /**
+     * @param A
+     * @param B
+     * @return
+     */
+    public String additionSubtract(DoubleLinkedList A, DoubleLinkedList B, boolean add) {
+        Nodo b = B.getStart(), a = A.getStart();
+
+        while (a != null || b != null) {
+            if (a != null && b == null) {
+                appendToEnd(a.getData());
+                a = a.getNext();
+            } else if (a == null && b != null) {
+                appendToEnd(b.getData());
+                b = b.getNext();
+            } else {
+                appendToEnd(add ? a.getData() + b.getData() : a.getData() - b.getData());
+                a = a.getNext();
+                b = b.getNext();
+            }
+
+        }
+        // while (a != A.getStart() || a != null && b != B.getStart() || b != null);
 
         return showList();
-    } 
+    }
 
-    public String subtract(ListaDobleEnlazada A, ListaDobleEnlazada B) {
+    public String multiply(DoubleLinkedList A, DoubleLinkedList B) {
+        Nodo b = B.getStart(), a = A.getStart();
+
+        while (a != null || b != null) {
+            if (a != null && b == null) {
+                appendToEnd(a.getData());
+                a = a.getNext();
+            } else if (a == null && b != null) {
+                appendToEnd(b.getData());
+                b = b.getNext();
+            } else {
+                appendToEnd(a.getData() * b.getData());
+                a = a.getNext();
+                b = b.getNext();
+            }
+        }
+        return showList();
+    }
+
+    public String divide(DoubleLinkedList A, DoubleLinkedList B) {
         Nodo a = A.getStart(), b = B.getStart();
 
+        while (a != null || b != null) {
+            if (a == null) {
+                appendToEnd(0);
+                b = b.getNext();
+
+            } else if (b == null || b.getData() == 0) {
+                appendToEnd(0);
+                a = a.getNext();
+            } else {
+                appendToEnd(a.getData() / b.getData());
+                a = a.getNext();
+                b = b.getNext();
+            }
+        }
+
         return showList();
-    } 
-
-    public String multiply(ListaDobleEnlazada A, ListaDobleEnlazada B) {
-        Nodo a = A.getStart(), b = B.getStart();
-
-        return showList();
-    } 
-
-    public String divide(ListaDobleEnlazada A, ListaDobleEnlazada B) {
-        Nodo a = A.getStart(), b = B.getStart();
-
-        return showList();
-    }       
-
-
+    }
 
     // ############### Utility ###############
     public boolean isEmpty() { // return true if the list is empty
