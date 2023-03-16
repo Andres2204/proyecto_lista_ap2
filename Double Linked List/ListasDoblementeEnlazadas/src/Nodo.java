@@ -1,6 +1,6 @@
 public class Nodo {
     private Nodo previous, next;
-    private int data;
+    private float data;
 
     public Nodo() {
         this.previous = null;
@@ -8,7 +8,7 @@ public class Nodo {
         this.data = 0;
     }
 
-    public Nodo(int d) {
+    public Nodo(float d) {
         this.previous = null;
         this.next = null;
         this.data = d;
@@ -27,10 +27,10 @@ public class Nodo {
     public void setNext(Nodo next) {
         this.next = next;
     }
-    public int getData() {
+    public float getData() {
         return data;
     }
-    public void setData(int data) {
+    public void setData(float data) {
         this.data = data;
     }
 }

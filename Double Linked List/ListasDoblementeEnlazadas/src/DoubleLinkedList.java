@@ -7,7 +7,7 @@ public class DoubleLinkedList {
         sortAsc = asc;
         Nodo p = start;
         Nodo q = p;
-        int aux;
+        float aux;
         while (p != null) {
             q = start;
             while (q != null) {
@@ -28,7 +28,7 @@ public class DoubleLinkedList {
     }
 
     // ############### Append methods ###############
-    public void appendSort(int d, boolean asc) {
+    public void appendSort(float d, boolean asc) {
         sortAsc = asc;
         Nodo p = start, x = new Nodo(d);
         if (!isEmpty()) {
@@ -59,7 +59,7 @@ public class DoubleLinkedList {
 
     }
 
-    public void appendToStart(int d) {
+    public void appendToStart(float d) {
         Nodo newNodo = new Nodo(d);
         if (isEmpty()) {
             start = newNodo;
@@ -71,7 +71,7 @@ public class DoubleLinkedList {
         }
     }
 
-    public void appendToEnd(int d) {
+    public void appendToEnd(float d) {
         Nodo newNodo = new Nodo(d);
         if (isEmpty()) {
             start = newNodo;
@@ -85,19 +85,39 @@ public class DoubleLinkedList {
     }
 
     // ############### Search ###############
-    public int search(int d) {
-        int counter = 0;
+    public MixedType search(float d, int action) {
+        MixedType output = new MixedType();
         Nodo p = start;
         do {
-            if (p.getData() == d) {
-                counter++;
-            }
-        } while (p != start);
+            System.out.println("s");
+            if (p.getData() == d)
+                output.INT++;
+            switch (action){
+                case 1: // Show d
+                    output.STRING += "<" + d + "> \n";
+                    break;
 
-        return counter;
+                case 2: // Delete d
+
+                    output.STRING = "Number Deleted.";
+                    break;
+
+                case 3: // Replace d
+                    p.setData(d);
+                    output.STRING += "<- [ "+p.getData()+" ] ->";
+                    output.STATUS = true;
+                    break;
+
+                default:
+                    break;
+            }
+            p = p.getNext();
+        } while (p != null);
+        return output;
     }
 
     // ############### Math Operations ###############
+
     /**
      * @param A
      * @param B
@@ -105,13 +125,12 @@ public class DoubleLinkedList {
      */
     public String additionSubtract(DoubleLinkedList A, DoubleLinkedList B, boolean add) {
         Nodo b = B.getStart(), a = A.getStart();
-
         while (a != null || b != null) {
             if (a != null && b == null) {
                 appendToEnd(a.getData());
                 a = a.getNext();
             } else if (a == null && b != null) {
-                appendToEnd(b.getData());
+                appendToEnd(add ? b.getData() : (-1) * b.getData());
                 b = b.getNext();
             } else {
                 appendToEnd(add ? a.getData() + b.getData() : a.getData() - b.getData());
@@ -145,11 +164,20 @@ public class DoubleLinkedList {
     }
 
     public String divide(DoubleLinkedList A, DoubleLinkedList B) {
+        if (A.isEmpty()) {
+            return "A is empty.";
+        }
+        if (B.isEmpty()) {
+            return "B is empty.";
+        }
+
+
         Nodo a = A.getStart(), b = B.getStart();
+
 
         while (a != null || b != null) {
             if (a == null) {
-                appendToEnd(0);
+                appendToEnd(b.getData());
                 b = b.getNext();
 
             } else if (b == null || b.getData() == 0) {

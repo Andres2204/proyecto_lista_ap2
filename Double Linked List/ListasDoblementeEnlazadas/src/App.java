@@ -8,21 +8,23 @@ public class App {
         UIManager.put("OptionPane.messageFont", f);
 
         /* Docs */
-
         DoubleLinkedList A = new DoubleLinkedList();
         DoubleLinkedList B = new DoubleLinkedList();
         boolean selectedList = true, sortAsc = true; // True = A, False = B
-        int d = 0, opc = 0, times = 0;
+        int d = 0, opc = 0;
+        MixedType searchOutput;
 
         // For testing
+        // A.appendToEnd(10);
         // A.appendToEnd(10);
         // A.appendToEnd(120);
         // A.appendToEnd(14*5);
         // A.appendToEnd(125);
-        // B.appendToEnd(130);
+
+        // B.appendToEnd(-130);
         // B.appendToEnd(120);
         // B.appendToEnd(14);
-        // B.appendToEnd(5);
+        // B.appendToEnd(-5);
         // B.appendToEnd(30);
 
         while (true) {
@@ -63,9 +65,10 @@ public class App {
 
                     case 5: // Search
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number to search: "));
-                        times = A.search(d);
+                        searchOutput = A.search(d, 1);
                         JOptionPane.showMessageDialog(null,
-                                "The number was found: " + times + (times > 1 ? " times" : " time"));
+                                "The number was found: " + searchOutput.INT + (searchOutput.INT > 1 ? " times" : " time"));
+                        JOptionPane.showMessageDialog(null, searchOutput.STRING);
                         break;
 
                     case 6: // Math
@@ -73,7 +76,7 @@ public class App {
                                 1. Addition.
                                 2. Subtract.
                                 3. Multiply (null elements are taken as 1)
-                                4. Divide. (If it's nothing, then
+                                4. Divide. (If null is nothing, then
                                     nothing can't be divisible by
                                     something, and nothing can't
                                     divide something.)
@@ -92,7 +95,7 @@ public class App {
                     case 7: // show list
                         JOptionPane.showMessageDialog(null, selectedList ? A.showList() : B.showList());
                         break;
-                    case 8:
+                    case 8: // config
                         opc = Integer.parseInt(JOptionPane.showInputDialog(null, """
                                 1. Change Selected List.
                                 2. Change Sort Direction.
@@ -127,7 +130,7 @@ public class App {
 
                         break;
 
-                    case 9:
+                    case 9: // exit
                         System.exit(0);
                         break;
 
