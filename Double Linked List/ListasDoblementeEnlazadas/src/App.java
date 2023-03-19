@@ -65,20 +65,23 @@ public class App {
 
                     case 5: // Search
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number to search: "));
-                        searchOutput = A.search(d, 1);
+                        DoubleLinkedList listIn = selectedList ? A : B;
+                        searchOutput = listIn.search(d, 1);
+
                         int optionSearch = Integer.parseInt(JOptionPane.showInputDialog(null,
                             "The number was found: " + searchOutput.INT + (searchOutput.INT > 1 ? " times" : " time") + "\n\n" + 
-                            "¿Que deseas hacer con el dato encontrado?\n\n" + 
+                            "What do you want to do with the found number?\n\n" + 
                             "1. Delete\n" + 
                             "2. Replace\n" + 
                             "3. Back\n"));
 
                         if (optionSearch == 1) {
-                            searchOutput = A.search(d, 1); //cambiar a lista seleccionada
+                            searchOutput = listIn.search(d, 2);
                             JOptionPane.showMessageDialog(null, searchOutput.STRING);
 
                         } else if (optionSearch == 2) {
-                            searchOutput = A.search(d, 2); //cambiar a lista seleccionada
+                            searchOutput = listIn.search(d, 3
+                            );
                             JOptionPane.showMessageDialog(null, searchOutput.STRING);
 
                         } else if (optionSearch == 3) {
@@ -87,14 +90,13 @@ public class App {
                             JOptionPane.showMessageDialog(null, "Invalid Option");
                         }
 
-
                         break;
 
                     case 6: // Math
                         opc = Integer.parseInt(JOptionPane.showInputDialog(null,
                                 "1. Addition.\n" + 
                                 "2. Subtract.\n" +
-                                "3. Multiply (null elements are taken as 1)\n" +
+                                "3. Multiply. (Null elements are taken as 1.)\n" +
                                 "4. Divide. (If null is nothing, then nothing can't be divisible by something, and nothing can't divide something.)\n"
                                 ));
                         if (opc == 1)
@@ -145,7 +147,6 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid Option");
                         }
-                        
                             
                         break;
 
@@ -185,7 +186,7 @@ public class App {
                           "5. Search data.\n" +
                           "6. Math operations with two lists.\n" +
                           "7. Show list.\n" +
-                          "8. Config\n" +
-                          "9. Exit\n\n"));
+                          "8. Settings.\n" +
+                          "9. Exit.\n\n"));
     }
 }

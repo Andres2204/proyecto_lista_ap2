@@ -13,7 +13,7 @@ Proyecto para Algoritmos y programacion 2
     - Ascendente
     - Descendente
 
-- ### Buscar Dato ( )
+- ### Buscar Dato (completo)
     - Mostrar dato
     - Eliminar dato
     - Reemplazar dato

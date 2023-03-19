@@ -87,41 +87,35 @@ public class DoubleLinkedList {
     public MixedType search(float d, int action) {
         MixedType output = new MixedType();
         Nodo p = start;
-        boolean found = false;
+        Boolean found = false;
         
         do {
-            // System.out.println("s");
-            
             if (p.getData() == d)
                 output.INT++;
 
             switch (action){
+                case 1: // Show d
+                    output.STRING += "<" + d + "> \n";
+                    break;
 
-                case 1: // Delete d
+                case 2: // Delete d
                     while (!found && p!=null) {
-                        // System.out.println(found);
-                        // Nodo nodoActual = p;
-                        System.out.println(p.getData());
-                        System.out.println(d);
 
                         if (p.getData() == d) {
-                            Nodo nodoAnterior = p.getPrevious();
-                            Nodo nodoSiguiente = p.getNext();
-                            nodoAnterior.setNext(nodoSiguiente);
-                            nodoSiguiente.setPrevious(nodoAnterior);
+                            Nodo previousNode = p.getPrevious();
+                            Nodo nextNode = p.getNext();
+                            previousNode.setNext(nextNode);
+                            nextNode.setPrevious(previousNode);
                             found = true;
-                            // System.out.println(p);
                         }
                         
                         p = p.getNext();
                     }
-
-                    
                     
                     output.STRING = "Number Deleted.";
                     break;
 
-                case 2: // Replace d
+                case 3: // Replace d
                     p.setData(d);
                     output.STRING += "<- [ "+p.getData()+" ] ->";
                     output.STATUS = true;
