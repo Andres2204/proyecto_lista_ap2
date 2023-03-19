@@ -33,7 +33,7 @@ public class DoubleLinkedList {
         Nodo p = start, x = new Nodo(d);
         if (!isEmpty()) {
 
-            // loop through the list until some condition is met
+            // Loop through the list until some condition is met
             while (p != null) {
                 if (sortAsc && p.getData() > d)
                     break; // exit to while
@@ -81,28 +81,47 @@ public class DoubleLinkedList {
             end.setNext(newNodo);
             end = newNodo;
         }
-
     }
 
     // ############### Search ###############
     public MixedType search(float d, int action) {
         MixedType output = new MixedType();
         Nodo p = start;
+        boolean found = false;
+        
         do {
-            System.out.println("s");
+            // System.out.println("s");
+            
             if (p.getData() == d)
                 output.INT++;
+
             switch (action){
-                case 1: // Show d
-                    output.STRING += "<" + d + "> \n";
-                    break;
 
-                case 2: // Delete d
+                case 1: // Delete d
+                    while (!found && p!=null) {
+                        // System.out.println(found);
+                        // Nodo nodoActual = p;
+                        System.out.println(p.getData());
+                        System.out.println(d);
 
+                        if (p.getData() == d) {
+                            Nodo nodoAnterior = p.getPrevious();
+                            Nodo nodoSiguiente = p.getNext();
+                            nodoAnterior.setNext(nodoSiguiente);
+                            nodoSiguiente.setPrevious(nodoAnterior);
+                            found = true;
+                            // System.out.println(p);
+                        }
+                        
+                        p = p.getNext();
+                    }
+
+                    
+                    
                     output.STRING = "Number Deleted.";
                     break;
 
-                case 3: // Replace d
+                case 2: // Replace d
                     p.setData(d);
                     output.STRING += "<- [ "+p.getData()+" ] ->";
                     output.STATUS = true;

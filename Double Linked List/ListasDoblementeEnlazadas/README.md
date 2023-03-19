@@ -13,14 +13,15 @@ Proyecto para Algoritmos y programacion 2
     - Ascendente
     - Descendente
 
-- ### Buscar Dato 
-    - mostar dato
-    - eliminar dato
-    - reemplazar dato
+- ### Buscar Dato ( )
+    - Mostrar dato
+    - Eliminar dato
+    - Reemplazar dato
 
 - ### Mostar Lista Graficamente (completo)
 - ### Operacions con listas (completo)
-    - sumar / restar
-    - multiplicacion
-    - divicion
+    - Sumar 
+    - Restar
+    - Multiplicacion
+    - Division
 

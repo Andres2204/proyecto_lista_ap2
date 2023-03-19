@@ -32,7 +32,7 @@ public class App {
             try {
 
                 switch (menu(selectedList, sortAsc)) {
-                    case 1: // append to start
+                    case 1: // Append to start
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendToStart(d);
@@ -40,7 +40,7 @@ public class App {
                             B.appendToStart(d);
                         break;
 
-                    case 2: // appent to end
+                    case 2: // Append to end
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendToEnd(d);
@@ -48,7 +48,7 @@ public class App {
                             B.appendToEnd(d);
                         break;
 
-                    case 3: // append sort
+                    case 3: // Append sort
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
                         if (selectedList)
                             A.appendSort(d, sortAsc);
@@ -66,21 +66,37 @@ public class App {
                     case 5: // Search
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number to search: "));
                         searchOutput = A.search(d, 1);
-                        JOptionPane.showMessageDialog(null,
-                                "The number was found: " + searchOutput.INT + (searchOutput.INT > 1 ? " times" : " time"));
-                        JOptionPane.showMessageDialog(null, searchOutput.STRING);
+                        int optionSearch = Integer.parseInt(JOptionPane.showInputDialog(null,
+                            "The number was found: " + searchOutput.INT + (searchOutput.INT > 1 ? " times" : " time") + "\n\n" + 
+                            "¿Que deseas hacer con el dato encontrado?\n\n" + 
+                            "1. Delete\n" + 
+                            "2. Replace\n" + 
+                            "3. Back\n"));
+
+                        if (optionSearch == 1) {
+                            searchOutput = A.search(d, 1); //cambiar a lista seleccionada
+                            JOptionPane.showMessageDialog(null, searchOutput.STRING);
+
+                        } else if (optionSearch == 2) {
+                            searchOutput = A.search(d, 2); //cambiar a lista seleccionada
+                            JOptionPane.showMessageDialog(null, searchOutput.STRING);
+
+                        } else if (optionSearch == 3) {
+                            
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Invalid Option");
+                        }
+
+
                         break;
 
                     case 6: // Math
-                        opc = Integer.parseInt(JOptionPane.showInputDialog(null, """
-                                1. Addition.
-                                2. Subtract.
-                                3. Multiply (null elements are taken as 1)
-                                4. Divide. (If null is nothing, then
-                                    nothing can't be divisible by
-                                    something, and nothing can't
-                                    divide something.)
-                                """));
+                        opc = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                "1. Addition.\n" + 
+                                "2. Subtract.\n" +
+                                "3. Multiply (null elements are taken as 1)\n" +
+                                "4. Divide. (If null is nothing, then nothing can't be divisible by something, and nothing can't divide something.)\n"
+                                ));
                         if (opc == 1)
                             JOptionPane.showMessageDialog(null, C.additionSubtract(A, B, true));
                         if (opc == 2)
@@ -92,20 +108,20 @@ public class App {
 
                         break;
 
-                    case 7: // show list
+                    case 7: // Show list
                         JOptionPane.showMessageDialog(null, selectedList ? A.showList() : B.showList());
                         break;
-                    case 8: // config
-                        opc = Integer.parseInt(JOptionPane.showInputDialog(null, """
-                                1. Change Selected List.
-                                2. Change Sort Direction.
-                                """));
+
+                    case 8: // Config
+                        opc = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                "1. Change Selected List.\n" +
+                                "2. Change Sort Direction.\n" +
+                                "3. Back.\n"));
                         if (opc == 1) { // Swich dont work in swich
 
-                            String list = JOptionPane.showInputDialog(null, """
-                                    A. First List.
-                                    B. Second List.
-                                    """).toLowerCase();
+                            String list = JOptionPane.showInputDialog(null,
+                                    "A. First List." +
+                                    "B. Second List.").toLowerCase();
                             if (list.toCharArray()[0] == "a".toCharArray()[0])
                                 selectedList = true;
                             else if (list.toCharArray()[0] == "b".toCharArray()[0]) {
@@ -116,21 +132,24 @@ public class App {
                                 JOptionPane.showMessageDialog(null, "Invalid Option");
 
                         } else if (opc == 2) {
-
-                            if (JOptionPane.showInputDialog(null, """
-                                    1. Ascending sort.
-                                    2. Descending sort.
-                                    """).toLowerCase() == "1")
+                            
+                            if (Integer.parseInt(JOptionPane.showInputDialog(null,
+                                    "1. Ascending sort.\n" +
+                                    "2. Descending sort.\n")) == 1)
                                 sortAsc = true;
                             else
                                 sortAsc = false;
 
-                        } else
-                            JOptionPane.showMessageDialog(null, "Invalid Option");
+                        } else if (opc == 3) {
 
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Invalid Option");
+                        }
+                        
+                            
                         break;
 
-                    case 9: // exit
+                    case 9: // Exit
                         System.exit(0);
                         break;
 
@@ -159,17 +178,14 @@ public class App {
         return Integer.parseInt(JOptionPane.showInputDialog(null,
                 "Current List:" + (currentList ? " A " : " B ").toString()
                         + "\nSort Direction: " + (sortAsc ? "Ascending" : "Descending").toString()
-                        + """
-                                \n
-                                1. Append to start.
-                                2. Append to end.
-                                3. Append sorted.
-                                4. Sort list.
-                                5. Search data.
-                                6. Math operatios with two lists.
-                                7. Show list.
-                                8. Config
-                                9. exit\n
-                                """));
+                        + "\n\n1. Append to start.\n" +
+                          "2. Append to end.\n" +
+                          "3. Append sorted.\n" +
+                          "4. Sort list.\n" +
+                          "5. Search data.\n" +
+                          "6. Math operations with two lists.\n" +
+                          "7. Show list.\n" +
+                          "8. Config\n" +
+                          "9. Exit\n\n"));
     }
 }
