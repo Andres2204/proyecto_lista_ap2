@@ -3,14 +3,14 @@ public class DoubleLinkedList {
     private boolean sortAsc = true;
 
     // ##### Sort #####
-    public void sort(boolean asc) {
+    public void sort(boolean asc) { // circular
         sortAsc = asc;
         Nodo p = start;
         Nodo q = p;
         float aux;
-        while (p != null) {
+        do {
             q = start;
-            while (q != null) {
+            do {
                 if (sortAsc && p.getData() < q.getData()) {
                     aux = p.getData();
                     p.setData(q.getData());
@@ -21,26 +21,26 @@ public class DoubleLinkedList {
                     q.setData(aux);
                 }
                 q = q.getNext();
-            }
+            } while (q != start);
             p = p.getNext();
-        }
+        } while (p != start);
 
     }
 
     // ############### Append methods ###############
-    public void appendSort(float d, boolean asc) {
+    public void appendSort(float d, boolean asc) { // circualr
         sortAsc = asc;
         Nodo p = start, x = new Nodo(d);
         if (!isEmpty()) {
 
             // Loop through the list until some condition is met
-            while (p != null) {
+            do {
                 if (sortAsc && p.getData() > d)
                     break; // exit to while
                 else if (!sortAsc && p.getData() < d)
                     break; // exit to while
                 p = p.getNext();
-            }
+            } while (p != start); 
 
             if (p == start) {
                 this.appendToStart(d);
@@ -59,154 +59,231 @@ public class DoubleLinkedList {
 
     }
 
-    public void appendToStart(float d) {
+    public void appendToStart(float d) { // circular
         Nodo newNodo = new Nodo(d);
         if (isEmpty()) {
+            newNodo.setNext(newNodo);
+            newNodo.setPrevious(newNodo);
             start = newNodo;
             end = newNodo;
         } else {
             newNodo.setNext(start);
+            newNodo.setPrevious(end);
             start.setPrevious(newNodo);
+            end.setNext(newNodo);
             start = newNodo;
         }
     }
 
-    public void appendToEnd(float d) {
+    public void appendToEnd(float d) { // circular
         Nodo newNodo = new Nodo(d);
         if (isEmpty()) {
+            newNodo.setNext(newNodo);
+            newNodo.setPrevious(newNodo);
             start = newNodo;
             end = newNodo;
+
         } else {
+            newNodo.setNext(start);
             newNodo.setPrevious(end);
+            start.setPrevious(newNodo);
             end.setNext(newNodo);
             end = newNodo;
         }
     }
 
     // ############### Search ###############
-    public MixedType search(float d, int action) {
+    public MixedType search(float d, int action, int remplaceNumber) { // circular
         MixedType output = new MixedType();
-        Nodo p = start;
-        Boolean found = false;
-        
+        Nodo p = start, x;
+
         do {
             if (p.getData() == d)
                 output.INT++;
 
-            switch (action){
-                case 1: // Show d
+            switch (action) {
+                case 1: // Show
                     output.STRING += "<" + d + "> \n";
                     break;
 
-                case 2: // Delete d
-                    while (!found && p!=null) {
-
-                        if (p.getData() == d) {
-                            Nodo previousNode = p.getPrevious();
-                            Nodo nextNode = p.getNext();
+                case 2: // Delete
+                    x = start;
+                    do {
+                        if (x.getData() == d) {
+                            Nodo previousNode = x.getPrevious();
+                            Nodo nextNode = x.getNext();
                             previousNode.setNext(nextNode);
                             nextNode.setPrevious(previousNode);
-                            found = true;
+                            if (x == start) { // Delete Start
+                                start = nextNode;
+                            }
+                            if (x == end) { // Delete End
+                                end = previousNode;
+                                x = end;
+                            }
                         }
-                        
-                        p = p.getNext();
-                    }
-                    
+                        x = x.getNext();
+                    } while (x != start);
+
                     output.STRING = "Number Deleted.";
                     break;
 
                 case 3: // Replace d
-                    p.setData(d);
-                    output.STRING += "<- [ "+p.getData()+" ] ->";
-                    output.STATUS = true;
+                    x = start;
+                    do {
+                        if (x.getData() == d) {
+                            x.setData(remplaceNumber);
+                            output.STRING += "<- [ " + x.getData() + " ] ->";
+                            output.STATUS = true;
+                        }
+                        x = x.getNext();
+                    } while (x != start);
                     break;
 
                 default:
                     break;
             }
             p = p.getNext();
-        } while (p != null);
+        } while (p != start);
         return output;
     }
 
-    // ############### Math Operations ###############
+    // ############### Math Operations ############### (circular)
 
-    /**
-     * @param A
-     * @param B
-     * @return
-     */
     public String additionSubtract(DoubleLinkedList A, DoubleLinkedList B, boolean add) {
-        Nodo b = B.getStart(), a = A.getStart();
-        while (a != null || b != null) {
-            if (a != null && b == null) {
-                appendToEnd(a.getData());
-                a = a.getNext();
-            } else if (a == null && b != null) {
-                appendToEnd(add ? b.getData() : (-1) * b.getData());
-                b = b.getNext();
-            } else {
-                appendToEnd(add ? a.getData() + b.getData() : a.getData() - b.getData());
-                a = a.getNext();
+        Nodo b, a;
+        if (A.isEmpty() && B.isEmpty()) {
+            return "Empty Lists";
+        }
+        if (A.size() > B.size()) {
+
+            if (B.isEmpty()) {
+                B.appendToEnd(0);
+            }
+            b = B.getStart();
+            while (A.size() != B.size()) {
+
+                if (b == B.getEnd()) {
+                    B.appendToEnd(0);
+                }
                 b = b.getNext();
             }
-
+        } else if (A.size() < B.size()) {
+            if (A.isEmpty()) {
+                A.appendToEnd(0);
+            }
+            a = A.getStart();
+            while (A.size() != B.size()) {
+                if (a == A.getEnd()) {
+                    A.appendToEnd(0);
+                }
+                a = a.getNext();
+            }
         }
-        // while (a != A.getStart() || a != null && b != B.getStart() || b != null);
+        b = B.getStart();
+        a = A.getStart();
+        do {
+            appendToEnd(add ? a.getData() + b.getData() : a.getData() - b.getData());
+            a = a.getNext();
+            b = b.getNext();
+        } while (a != A.getStart() || b != B.getStart());
 
         return showList();
     }
 
     public String multiply(DoubleLinkedList A, DoubleLinkedList B) {
-        Nodo b = B.getStart(), a = A.getStart();
+        if (A.isEmpty() && !B.isEmpty()) {
+            return B.showList();
+        }
+        if (B.isEmpty() && !A.isEmpty()) {
+            return A.showList();
+        }
+        if (A.isEmpty() && B.isEmpty()) {
+            return "Empty List";
+        }
 
-        while (a != null || b != null) {
-            if (a != null && b == null) {
-                appendToEnd(a.getData());
-                a = a.getNext();
-            } else if (a == null && b != null) {
-                appendToEnd(b.getData());
-                b = b.getNext();
-            } else {
-                appendToEnd(a.getData() * b.getData());
-                a = a.getNext();
+        Nodo b = B.getStart(), a = A.getStart();
+        if (A.size() > B.size()) {
+            while (A.size() != B.size()) {
+                if (b == B.getEnd()) {
+                    B.appendToEnd(1);
+                }
                 b = b.getNext();
             }
+        } else if (A.size() < B.size()) {
+            while (A.size() != B.size()) {
+                if (a == A.getEnd()) {
+                    A.appendToEnd(1);
+                }
+                a = a.getNext();
+            }
         }
+
+        b = B.getStart();
+        a = A.getStart();
+        do {
+            appendToEnd(a.getData() * b.getData());
+            a = a.getNext();
+            b = b.getNext();
+        } while (a != A.getStart() || b != B.getStart());
         return showList();
     }
 
     public String divide(DoubleLinkedList A, DoubleLinkedList B) {
-        if (A.isEmpty()) {
-            return "A is empty.";
+        if (A.isEmpty() && !B.isEmpty()) {
+            return B.showList();
         }
-        if (B.isEmpty()) {
-            return "B is empty.";
+        if (B.isEmpty() && !A.isEmpty()) {
+            return A.showList();
+        }
+        if (A.isEmpty() && B.isEmpty()) {
+            return "Empty List";
         }
 
-
-        Nodo a = A.getStart(), b = B.getStart();
-
-
-        while (a != null || b != null) {
-            if (a == null) {
-                appendToEnd(b.getData());
+        Nodo b = B.getStart(), a = A.getStart();
+        if (A.size() > B.size()) {
+            while (A.size() != B.size()) {
+                if (b == B.getEnd()) {
+                    B.appendToEnd(1);
+                }
                 b = b.getNext();
-
-            } else if (b == null || b.getData() == 0) {
-                appendToEnd(0);
+            }
+        } else if (A.size() < B.size()) {
+            while (A.size() != B.size()) {
+                if (a == A.getEnd()) {
+                    A.appendToEnd(1);
+                }
                 a = a.getNext();
-            } else {
-                appendToEnd(a.getData() / b.getData());
-                a = a.getNext();
-                b = b.getNext();
             }
         }
 
+        b = B.getStart();
+        a = A.getStart();
+        do {
+            appendToEnd(a.getData() / b.getData());
+            a = a.getNext();
+            b = b.getNext();
+        } while (a != A.getStart() || b != B.getStart());
         return showList();
     }
 
     // ############### Utility ###############
+    public int size() {
+        if (!isEmpty()) {
+
+            int size = 0;
+            Nodo p = start;
+
+            do {
+                size++;
+                p = p.getNext();
+            } while (p != start);
+            return size;
+        } else {
+            return 0;
+        }
+    }
+
     public boolean isEmpty() { // return true if the list is empty
         return start == null ? true : false;
     }
@@ -216,14 +293,27 @@ public class DoubleLinkedList {
         String nextText, previousText, output = "Is Empty";
         if (!isEmpty()) {
             output = "";
-            while (p != null) {
+            do {
                 nextText = p.getNext() == null ? " / " : " | -> ";
                 previousText = p.getPrevious() == null ? " / " : " <- | ";
                 output += previousText + p.getData() + nextText;
                 p = p.getNext();
-            }
+            } while (p != start);
         }
         return output;
+    }
+
+    public void copyList(DoubleLinkedList A) {
+        start = null;
+        end = null;
+        System.gc();
+        Nodo a = A.getStart();
+        if (!A.isEmpty()) {
+            do {
+                appendToEnd(a.getData());
+                a = a.getNext();
+            } while (a != A.getStart());
+        }
     }
 
     // ############### Getters and Setters ###############

@@ -10,16 +10,21 @@ public class App {
         /* Docs */
         DoubleLinkedList A = new DoubleLinkedList();
         DoubleLinkedList B = new DoubleLinkedList();
+        DoubleLinkedList ACopy = new DoubleLinkedList();
+        DoubleLinkedList BCopy = new DoubleLinkedList();
+
+
         boolean selectedList = true, sortAsc = true; // True = A, False = B
         int d = 0, opc = 0;
         MixedType searchOutput;
 
         // For testing
-        // A.appendToEnd(10);
-        // A.appendToEnd(10);
-        // A.appendToEnd(120);
-        // A.appendToEnd(14*5);
-        // A.appendToEnd(125);
+        // A.appendToEnd(540);
+        // A.appendToEnd(15);
+        // A.appendToEnd(150);
+        // A.appendToEnd(134);
+        // A.appendToEnd(15);
+        // A.appendToEnd( 125);
 
         // B.appendToEnd(-130);
         // B.appendToEnd(120);
@@ -30,7 +35,6 @@ public class App {
         while (true) {
             DoubleLinkedList C = new DoubleLinkedList(); // restart the list for the new math operations
             try {
-
                 switch (menu(selectedList, sortAsc)) {
                     case 1: // Append to start
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number: "));
@@ -66,7 +70,7 @@ public class App {
                     case 5: // Search
                         d = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter a number to search: "));
                         DoubleLinkedList listIn = selectedList ? A : B;
-                        searchOutput = listIn.search(d, 1);
+                        searchOutput = listIn.search(d, 0, 0);
 
                         int optionSearch = Integer.parseInt(JOptionPane.showInputDialog(null,
                             "The number was found: " + searchOutput.INT + (searchOutput.INT > 1 ? " times" : " time") + "\n\n" + 
@@ -75,16 +79,15 @@ public class App {
                             "2. Replace\n" + 
                             "3. Back\n"));
 
-                        if (optionSearch == 1) {
-                            searchOutput = listIn.search(d, 2);
+                        if (optionSearch == 1) { // delete
+                            searchOutput = listIn.search(d, 2, 0);
                             JOptionPane.showMessageDialog(null, searchOutput.STRING);
 
-                        } else if (optionSearch == 2) {
-                            searchOutput = listIn.search(d, 3
-                            );
+                        } else if (optionSearch == 2) { // renplace
+                            searchOutput = listIn.search(d, 3, Integer.parseInt(JOptionPane.showInputDialog(null, "Replace number: ")));
                             JOptionPane.showMessageDialog(null, searchOutput.STRING);
 
-                        } else if (optionSearch == 3) {
+                        } else if (optionSearch == 3) { // exit
                             
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid Option");
@@ -93,6 +96,8 @@ public class App {
                         break;
 
                     case 6: // Math
+                        ACopy.copyList(A);
+                        BCopy.copyList(B);
                         opc = Integer.parseInt(JOptionPane.showInputDialog(null,
                                 "1. Addition.\n" + 
                                 "2. Subtract.\n" +
@@ -100,13 +105,13 @@ public class App {
                                 "4. Divide. (If null is nothing, then nothing can't be divisible by something, and nothing can't divide something.)\n"
                                 ));
                         if (opc == 1)
-                            JOptionPane.showMessageDialog(null, C.additionSubtract(A, B, true));
+                            JOptionPane.showMessageDialog(null, C.additionSubtract(ACopy, BCopy, true));
                         if (opc == 2)
-                            JOptionPane.showMessageDialog(null, C.additionSubtract(A, B, false));
+                            JOptionPane.showMessageDialog(null, C.additionSubtract(ACopy, BCopy, false));
                         if (opc == 3)
-                            JOptionPane.showMessageDialog(null, C.multiply(A, B));
+                            JOptionPane.showMessageDialog(null, C.multiply(ACopy, BCopy));
                         if (opc == 4)
-                            JOptionPane.showMessageDialog(null, C.divide(A, B));
+                            JOptionPane.showMessageDialog(null, C.divide(ACopy, BCopy));
 
                         break;
 
@@ -122,7 +127,7 @@ public class App {
                         if (opc == 1) { // Swich dont work in swich
 
                             String list = JOptionPane.showInputDialog(null,
-                                    "A. First List." +
+                                    "A. First List. \n" +
                                     "B. Second List.").toLowerCase();
                             if (list.toCharArray()[0] == "a".toCharArray()[0])
                                 selectedList = true;
